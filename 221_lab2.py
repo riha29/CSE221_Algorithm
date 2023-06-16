@@ -75,8 +75,8 @@ for i in range(len(nums)):
 # N
 
 # Task-2--02
-inp= open('/content/drive/MyDrive/Colab Notebooks/221_lab2/lab2_input2_1.txt', 'r')
-out= open('/content/drive/MyDrive/Colab Notebooks/221_lab2/lab2_output2_1.txt', 'w')
+inp= open('/content/drive/MyDrive/Colab Notebooks/221_lab2/lab2_input2_2.txt', 'r')
+out= open('/content/drive/MyDrive/Colab Notebooks/221_lab2/lab2_output2_2.txt', 'w')
 
 arr=[]
 
@@ -94,22 +94,33 @@ a2= inp.readline().strip().split(' ')
 for i in range(len(a2)):
   arr2.append(int(a2[i]))
 
-n= len(arr1)+ len(arr2)
-
 i,j,k=0,0,0
-while k<= (len(arr1)+ len(arr2)):
-  if i==len(arr1):
-    arr[k:]= arr2[j:]
-  if j==len(arr2):
+arr=[]
+
+while len(arr)<=k:
+  if i==len(arr1) and j==len(arr2):
     break
   if arr1[i]<arr2[j]:
     arr.append(arr1[i])
     i+=1
     k+=1
-  if arr2[j]<arr1[i]:
+    if i==len(arr1) and j<len(arr2):
+      arr+= arr2[j:]
+  else:
     arr.append(arr2[j])
     j+=1
     k+=1
-print(arr)
+    if j==len(arr2) and i<len(arr1):
+      arr+= arr1[i:]
+out.write(str(arr))
 
-# 1 1 2 3 4 5 6 8 8 8 10 12 13 14 15 16
+# task-03
+inp= open('/content/drive/MyDrive/Colab Notebooks/221_lab2/lab2_input3.txt', 'r')
+out= open('/content/drive/MyDrive/Colab Notebooks/221_lab2/lab2_output3.txt', 'w')
+
+t= inp.readline()
+nums= inp.readline().strip().split(' ')
+
+num=[]
+for i in range(len(nums)):
+  num.append(int(nums[i]))
