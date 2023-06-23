@@ -186,3 +186,62 @@ j #------------1
 # s(n)= 3n2 +3. so the space complexity is O(n2)
 
 
+# merge sort
+def MergeSort(arr):
+  if len(arr)<=1:
+    return arr
+  
+  mid=(len(arr))//2
+  
+  left= MergeSort(arr[:mid])
+  right= MergeSort(arr[mid:])
+  
+  return Merge(left, right)
+
+def Merge(left, right):
+  a=[]
+  i,j=0,0
+
+  while i<len(left) and j<len(right):
+    if left[i]<=right[j]:
+      a.append(left[i])
+      i+=1
+    else:
+      a.append(right[j])
+      j+=1
+  
+  while i<len(left):
+    a.append(left[i])
+    i+=1
+  
+  while j<len(right):
+    a.append(right[j])
+    j+=1
+  
+  return a
+
+arr= [9,4,5,2,1,7,4,6]
+print(MergeSort(arr))
+     
+
+#quicksort
+def quickSort(arr):
+  if len(arr)<=1:
+    return arr
+
+  pivot= (len(arr))//2
+  left= []
+  right=[]
+  middle=[]
+  for i in range(len(arr)):
+    if arr[i]<arr[pivot]:
+      left.append(arr[i])
+    if arr[i]>arr[pivot]:
+      right.append(arr[i])
+    if arr[i]==arr[pivot]:
+      middle.append(arr[i])
+  
+  return quickSort(left)+ middle+ quickSort(right)
+
+arr= [6,10,13,5,8,3,2,11]
+print(quickSort(arr))
