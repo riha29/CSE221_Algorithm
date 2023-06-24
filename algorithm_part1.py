@@ -457,11 +457,76 @@ require the array to be sorted, thus not needing extra space. However, in scenar
 space isn't a concern but time complexity is (like searching in a very large array), sorting
 the array first might be beneficial.
 
-# 4-b
-count sort
+# # 4-b
+Yes, counting sort can be modified to handle negative numbers by shifting all the
+numbers so they become positive. This is done by finding the minimum number and adding
+its absolute value to every number in the array. Here's the code:
+
+def counting_sort(arr):
+    min_val = min(arr)
+    max_val = max(arr)
+    
+    if min_val < 0:
+        shift = -min_val
+        max_val += shift
+        for i in range(len(arr)):
+            arr[i] += shift
+    else:
+        shift = 0
+    
+    count = [0] * (max_val + 1)
+    
+    for num in arr:
+        count[num] += 1
+    
+    for i in range(1, len(count)):
+        count[i] += count[i - 1]
+    
+    output = [0] * len(arr)
+    
+    for num in reversed(arr):
+        output[count[num] - 1] = num - shift
+        count[num] -= 1
+
+    return output
+
+arr = [2, 5, 1, 6, 1, 9, 2, 7, 0, -4, -5, 2, 5, 5]
+print(counting_sort(arr))
 
 # 4-c
-count sort
+Counting sort is not well suited for decimal numbers. It's generally used for
+integers in a specific range. To handle floating-point numbers or negative numbers with counting sort, it's
+essentially needed to convert them to positive integers. However, these adjustments
+can significantly increase the range and the space complexity of the sort.
+
+def counting_sort(arr):
+    arr = [int(x*10) for x in arr]
+    
+    min_val = min(arr)
+    max_val = max(arr)
+    # Shift all numbers to be positive
+    if min_val < 0:
+        shift = -min_val
+        max_val += shift
+        for i in range(len(arr)):
+            arr[i] += shift
+    else:
+        shift = 0
+    
+    count = [0] * (max_val + 1)    
+    for num in arr:
+        count[num] += 1    
+    for i in range(1, len(count)):
+        count[i] += count[i - 1]
+    
+    output = [0] * len(arr)    
+    for num in reversed(arr):
+        output[count[num] - 1] = (num - shift) / 10  # divide by 10 to restore original values
+        count[num] -= 1
+    return output
+
+arr = [2, 5, 1.2, 6.7, 1.7, 9.3, 2.2, 7.7, 0, -4, -5.1, 2, 5, 5.2]
+print(counting_sort(arr))
 
 # 4-d
 In the described scenario where memory is a significant constraint, Quick Sort would
