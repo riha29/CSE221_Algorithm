@@ -221,7 +221,7 @@ def Merge(left, right):
   return a
 
 arr= [9,4,5,2,1,7,4,6]
-print(MergeSort(arr))
+# print(MergeSort(arr))
      
 
 #quicksort
@@ -244,4 +244,103 @@ def quickSort(arr):
   return quickSort(left)+ middle+ quickSort(right)
 
 arr= [6,10,13,5,8,3,2,11]
-print(quickSort(arr))
+# print(quickSort(arr))
+
+# After working with the binary search algorithm, as a CS-221 student you want to explore its strength.
+# You have several ideas in your mind. Try to modify the algorithm to implement your ideas. 
+
+#a. Instead of just returning TRUE or FALSE, you want to return the index of the search key if it exists in the list.
+# Return FALSE or –ve index in case it is not found. 
+def binarySearch(arr, low, high, target):
+  while low<=high:
+    mid= (low+high)//2
+    if arr[mid]==target:
+      return mid
+    elif arr[mid]<target:
+      return binarySearch(arr, mid+1, high, target)
+    elif arr[mid]>target:
+      return binarySearch(arr, low, mid-1, target)
+
+  return False
+
+items = [2, 3, 4, 10, 40, 44, 55, 70, 80, 90, 100]
+# print(binarySearch(items, 0, len(arr), 400))
+
+#b. What if you want to return the first index of the search key in case there are duplicates.
+# For example: your search key is 13 and there are three 13s in the list. 
+def binarySearch(arr, low, high, target):
+  flag=False
+  while low<=high:
+    mid= (low+high)//2
+    if arr[mid]==target:
+      if int(arr[mid]) not in arr[:mid]:
+        flag= True
+        return mid
+      else:
+        return binarySearch(arr, low, mid-1, target)
+    elif arr[mid]<target:
+      if flag==True:
+        break
+      return binarySearch(arr, mid+1, high, target)
+    elif arr[mid]>target:
+      if flag==True:
+        break
+      return binarySearch(arr, low, mid-1, target)
+
+  return False
+
+
+items = [1, 3, 4, 7, 10, 13, 13, 13, 17, 20, 22, 25, 30, 35, 40]
+# print(binarySearch(items, 0, len(items), 2))
+
+#c. Now, along with the first index, you also want to return the number of times the key appears in the list.
+# Say, the search key is 54 and it occurs 4 times in indices 6,7,8,9. Then you should return (6,4). 
+def binarySearch(arr, low, high, target):
+  flag=False
+  while low<=high:
+    mid= (low+high)//2
+    if arr[mid]==target:
+      if int(arr[mid]) not in arr[:mid]:
+        flag= True
+        return (mid, count(target))
+      else:
+        return binarySearch(arr, low, mid-1, target)
+    elif arr[mid]<target:
+      if flag==True:
+        break
+      return binarySearch(arr, mid+1, high, target)
+    elif arr[mid]>target:
+      if flag==True:
+        break
+      return binarySearch(arr, low, mid-1, target)
+  return False
+
+def count(n):
+  count=0
+  for i in range(len(items)):
+    if items[i]==n:
+      count+=1
+  return count
+
+items = [10, 20, 30, 40, 42, 50, 54, 54, 54, 54, 55, 56, 57, 58, 59, 60, 70, 80, 90, 100]
+# print(binarySearch(items, 0, len(items), 54))
+
+#d. You have a list of numbers that follows a wave-like pattern. First the numbers follow a decreasing pattern,
+# then after a point, they start increasing again. So there is a minimum element in the list. Can you find that by modifying binary search? 
+def waveSearch(arr):
+  start= 0
+  end= len(arr)-1
+
+  while start<=end:
+    mid= (start+end)//2
+
+    if (mid!=arr[0] or arr[mid]<arr[mid-1]) and (mid!=arr[len(arr)-1] or arr[mid]<arr[mid+1]):
+      return arr[mid]
+    elif arr[mid]>arr[mid+1]:
+      start= mid+1
+    else:
+      end= mid-1
+
+arr=[5,4,3,2,1,6,7,8,9]
+# print(waveSearch(arr))
+
