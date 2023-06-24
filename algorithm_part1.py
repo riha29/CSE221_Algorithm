@@ -344,3 +344,186 @@ def waveSearch(arr):
 arr=[5,4,3,2,1,6,7,8,9]
 # print(waveSearch(arr))
 
+
+# assignment task-1
+# task-1
+def binarySearch(arr, low, high, target):
+  flag=False    #indicator
+  while low<=high:
+    mid= (low+high)//2
+
+    if arr[mid]==target:
+      if int(arr[mid]) not in arr[:mid]:  #checking if the target is already present before
+        flag= True    #confirming very first index
+        return mid   #returning index of the search key 
+        return (mid, count(target))   #returning the index and total no of appearance of target
+      else:
+        return binarySearch(arr, low, mid-1, target)    #recursion call to find the very first index
+
+    elif arr[mid]<target:
+      if flag==True:  #already found very first index of target
+        break
+      else:
+        return binarySearch(arr, mid+1, high, target)
+    
+    elif arr[mid]>target:
+      if flag==True:  #already found very first index of target
+        break
+      return binarySearch(arr, low, mid-1, target)
+
+  return False  #in case if the target is not found
+
+def count(n):
+  count=0
+  for i in range(len(items)):
+    if items[i]==n:
+      count+=1  #counting the apprearance of target
+  return count
+
+def waveSearch(arr):
+  start= 0
+  end= len(arr)-1
+
+  while start<=end:
+    mid= (start+end)//2
+
+    if (mid!=arr[0] or arr[mid]<arr[mid-1]) and (mid!=arr[len(arr)-1] or arr[mid]<arr[mid+1]):
+      return arr[mid]   #smallest value
+    elif arr[mid]>arr[mid+1]:
+      start= mid+1
+    else:
+      end= mid-1
+
+items = [2, 3, 4, 10, 40, 44, 55, 70, 80, 90, 100]
+print(binarySearch(items, 0, len(items), 400))  #call for task-a
+
+items = [1, 3, 4, 7, 10, 13, 13, 13, 17, 20, 22, 25, 30, 35, 40]
+print(binarySearch(items, 0, len(items), 2))  #call for task-b
+
+items = [10, 20, 30, 40, 42, 50, 54, 54, 54, 54, 55, 56, 57, 58, 59, 60, 70, 80, 90, 100]
+print(binarySearch(items, 0, len(items), 54))   #call for task-c
+
+arr=[5,4,3,2,1,6,7,8,9]
+print(waveSearch(arr))    #call for task-d
+
+# task-3
+# 3-a
+def find_peak(arr):
+  start = 0
+  end = len(arr) - 1
+
+  while start < end:
+    mid = (start+ end)//2
+    if arr[mid] < arr[mid + 1]:
+      start = mid + 1
+    else:
+      end = mid
+    return arr[start]
+
+array = [1, 3, 4, 5, 9, 6, 2, -1]
+print(find_peak(array))
+
+# 3-b
+The time it takes for this algorithm to run gets slower in a very manageable
+way as the size of the list of numbers increases. Imagine if you had a list
+of 100 numbers. In the worst case, the algorithm would need to check about
+7 numbers (actually fewer) before it found the highest one. If you doubled
+the size of the list to 200 numbers, the algorithm would only need to check
+one extra number, about 8 in total (actually fewer). This is much better than
+having to potentially check every number in the list, which is what a slower
+algorithm (with time complexity O(n)) would do. That's why we say this algorithm
+has a time complexity of O(log n) - it's a technical way of saying it handles
+bigger lists very efficiently!
+
+# task-04
+# 4-a
+It's true that if only performing a single search, it's more efficient to just
+do a linear search on an unsorted array, which takes O(n) time, rather than sorting the
+array first in O(n log n) time and then doing a binary search in O(log n) time.
+
+However, there are situations where sorting the array first can pay off:
+
+1. **Multiple Searches:** If you need to perform multiple searches on the same array,
+sorting it first and then using binary search can be more efficient. After the initial
+sort, each subsequent search is done in O(log n) time, which can be a substantial savings
+if you're doing a lot of searches.
+
+2. **Need for Ordered Data:** If you need the data to be in sorted order for other parts
+of your program, then you'd need to sort the array anyway. Once the array is sorted, using
+binary search for any searches can be more efficient.
+
+3. **Memory Considerations:** Linear search can be more memory-efficient as it does not
+require the array to be sorted, thus not needing extra space. However, in scenarios where
+space isn't a concern but time complexity is (like searching in a very large array), sorting
+the array first might be beneficial.
+
+# 4-b
+count sort
+
+# 4-c
+count sort
+
+# 4-d
+In the described scenario where memory is a significant constraint, Quick Sort would
+generally be a better choice than Merge Sort. Here's why:
+
+**Space Complexity:** Quick Sort is an in-place sorting algorithm, which means it
+sorts the data in the array it is given without needing to create additional significant
+space. The space complexity of Quick Sort is O(log n) due to the recursion stack in the
+worst case. On the other hand, Merge Sort requires additional space equal to the size of
+the input array for merging operations, which means its space complexity is O(n). This
+could potentially be a problem when memory is a major constraint.
+
+# 4-e
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+This array is already sorted, so if QuickSort chooses the first element as the pivot at
+each step, it will create partitions where one part contains one element (the pivot) and
+the other contains the rest of the array, leading to the worst-case time complexity of O(n^2).
+
+# 4-f
+simulation
+
+# task-05
+# 5-a
+# pseudo code for linear search
+function of linearSearch(array, target)
+  setting i=0
+  when i<length of array
+    if array[i] is target
+      return i
+    i+=1
+  return -1
+
+# 5-b
+#  count sort
+
+# 5-c
+Yes, it's possible that the crash was a result of the counting sort algorithm. The reason lies in
+the space complexity of counting sort.
+
+The space complexity of counting sort is O(k), meaning it needs to create an auxiliary array of size
+k, where k is the maximum element in the input array.
+
+In this case, if a few users uploaded 1000 pictures each, the 'user post count' values could be in
+the thousands. If you used these counts directly as indices for the count array, the algorithm would
+try to create an array of size in the order of the maximum post count value.
+
+For example, if the maximum post count is 1000, counting sort would create an array of size 1000, most
+of which would be unused if there aren't many users with post counts close to that maximum. This can
+result in a huge amount of wasted space. In a server environment where memory is often limited, trying
+to allocate such large amounts of space can indeed lead to a server crash.
+
+A potential solution could be to use a more space-efficient sorting algorithm like QuickSort or MergeSort,
+both of which have a space complexity of O(n log n).
+
+# 5-d
+username= [Woof, Pupper, Max, Tuck, Rocky, Daisy]
+# simulation of merge sort over this array
+
+# 5-e
+The searching algorithm you would use in this case is Binary Search. Binary Search works by repeatedly
+dividing the search interval in half. If the target value is present in the list, it must lie within the
+current search interval. This approach has a time complexity of O(log n) and is very efficient.
+
+post count= [8, 12, 3, 5, 2, 17, 9, 14, 2, 3]
+# simulate binary search in this array
