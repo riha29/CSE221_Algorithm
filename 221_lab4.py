@@ -49,3 +49,58 @@ for i in range(n + 1):
 
 inp.close()
 out.close()
+
+# task-2
+from queue import Queue
+
+inp= open('/content/drive/MyDrive/Colab Notebooks/221_lab4/lab4_input2.txt', 'r')
+out= open('/content/drive/MyDrive/Colab Notebooks/221_lab4/lab4_output2.txt', 'w')
+
+n, m= map(int, inp.readline().split(' '))
+lst= [[] for i in range(n+1)]
+for i in range(m):
+  u, v = map(int, inp.readline().split(' '))
+  lst[u].append(v)
+
+def bfs(G,s):
+  src = 1
+  visited = [0] * (n + 1)
+  visited[src] = 1
+  st = []
+  st.append(src)
+  while True:
+    for i in lst[src]:
+      if visited[i] == 0:
+        st.append(i)
+        visited[i] = 1
+    print(st.pop(0), end = " ")
+    if len(st)!= 0:
+      src = st[0]
+    else:
+      break
+
+bfs(lst,1)
+
+from queue import Queue
+inp= open('/content/drive/MyDrive/Colab Notebooks/221_lab4/lab4_input2.txt', 'r')
+
+n, m= map(int, inp.readline().split(' '))
+lst= [[] for i in range(n+1)]
+for i in range(m):
+  u, v = map(int, inp.readline().split(' '))
+  lst[u].append(v)
+lst2=[0]*(n+1)
+
+def BFS(G,s):
+  for u in lst2[v]:
+    u.colour = 0
+  Q = Queue();
+  lst[s] = 1
+  Q.put(Q,s)
+  while not Q.empty():
+    u = Q.get(s)
+  for v in lst[u]:
+    if lst[v]== 0:
+      lst[v] = 1
+      Q.put(Q,v)
+print(BFS(lst,1))
